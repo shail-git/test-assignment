@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify
 from pydantic import BaseModel, ValidationError
 from kubernetes import client, config
 import openai
-
+import time
 # Configure logging
 logging.basicConfig(
     level=logging.DEBUG,
@@ -122,6 +122,7 @@ def create_query():
         # Return the answer
         logging.info(f"Generated answer: {answer}")
         response = QueryResponse(query=query, answer=answer)
+        time.sleep(30)
         return jsonify(response.dict())
 
     except Exception as e:
